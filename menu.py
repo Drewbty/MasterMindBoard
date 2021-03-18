@@ -1,19 +1,22 @@
-class mastermind( ):
+class Menu( ):
     
+    returnchoice=""
 
-    def play(self):
+    def __init__(self):
+        print("*********************************************************")
+
         
         print("\n\n\n\nSelect which game you want to play:")
         print("(A)  Mastermind for 2 players")
-        print("(B)  Mastermind for 1 player")
-        print("(C)  Mastermind for 4 players")
-        print("(D)  Mastermind for 4 players  vs Computer")
+        print("(B)  Mastermind for 1 player with Computer Support")
+        print("(C)  Mastermind44 for 4 players")
+        print("(D)  Mastermind44 for 4 players  with Computer Support")
         print("(E) to Exit")
-        
-        print("****Enter A, B, C, D to continue  or Enter E to Exit****")
-        choice = input("\n\n >")
+        print("*********************************************************")
 
-        return choice
+        choice = input("\n\n****Enter A, B, C, D or E **** >")
+
+        self.returnchoice= choice
 
 
    
