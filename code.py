@@ -1,7 +1,6 @@
 import random
 from collections import Counter
 import getpass
-import os
 import sys
 from compare import compare_code
 
@@ -14,7 +13,7 @@ colours = ['R', 'B', 'G', 'Y', 'M', 'C']
 
 
 class code:
-    
+
     def __init__(self):
         pass
     
@@ -36,8 +35,8 @@ class code:
         position_code = []
         self.l = l
         # 2 player version
-        temp1 = getpass.getpass('Enter your combination:')
-        temp2 = getpass.getpass('Enter your combination again:')
+        temp1 = input('Enter your combination:')
+        temp2 = input('Enter your combination again:')
         temp1="".join(temp1.split()) 
         temp1= temp1.upper()
 
@@ -95,7 +94,6 @@ class code:
 
                     #when matched the game automatically switches to the main menu
                     if(feedback == "Match"):
-                        os.system("clear")
                         print("Congratulations! ",player_1," You broke the code in", i, "attempts!")
                         return 'discontinue'
                     
@@ -108,7 +106,6 @@ class code:
                 print("length doesnt match. EXPECTED LENGTH IS ",peglen)
 
             if i==trylength:
-                os.system("clear")
                 print(player_1," You have failed to Break The Code")
             if max==cur and i==trylength:
                     print("You have failed to Break The Code: \n Correct Code was : " + solution_code )

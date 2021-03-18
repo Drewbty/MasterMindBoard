@@ -1,16 +1,16 @@
 import random
 from collections import Counter
-import getpass
-import os
 import sys
 from code import code
 from compare import player
-#(R)ed, (B)lue, (G)reen, (Y)ellow, (M)agenta, or (C)yan.
 
+
+#(R)ed, (B)lue, (G)reen, (Y)ellow, (M)agenta, or (C)yan.
 #This list holds all the available colours
 colours = ['R', 'B', 'G', 'Y', 'M', 'C'] 
 
 class gamePrefix():
+    
     def __init__(self,lengthPegs,trylength):
         self.trylength=trylength
         self.PegLength= lengthPegs
@@ -92,7 +92,7 @@ class game(code,gamePrefix):
     
     
     
-    
+    # get two player's game
     def mastermind2(self):
         print("Welcome to MasterMind for two players\n")
 
@@ -121,7 +121,7 @@ class game(code,gamePrefix):
             
             
 
-
+    # 1 player
     def mastermind1(self):
         print("Welcome to the MasterMind for 1 palyer")
         lengthPegs = self.PegLength

@@ -1,4 +1,3 @@
-import os
 class mastermind( ):
     
 
@@ -17,6 +16,5 @@ class mastermind( ):
         return choice
 
 
-    def clr(self):
-        os.system("clear")
+   
 

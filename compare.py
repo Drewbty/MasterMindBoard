@@ -2,7 +2,6 @@
 import random
 from collections import Counter
 import getpass
-import os
 import sys
 
 class compare_code:

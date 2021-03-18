@@ -8,7 +8,6 @@ class Mastermind():
         choice = obj.play()
         #initializing various games depending on which one tha player wants to play
         # with their respective players
-        obj.clr()
         if(choice == 'A' or choice == 'a'):
             gameobj = game(4,12)
             gameobj.mastermind2()
