@@ -1,146 +1,98 @@
 import random
 from collections import Counter
 import sys
-from code import code
-from compare import player
+from gameprefix import GamePrefix
+from compare import Player
 
 
-#(R)ed, (B)lue, (G)reen, (Y)ellow, (M)agenta, or (C)yan.
-#This list holds all the available colours
-colours = ['R', 'B', 'G', 'Y', 'M', 'C'] 
-
-class gamePrefix():
-    
-    def __init__(self,lengthPegs,trylength):
-        self.trylength=trylength
-        self.PegLength= lengthPegs
+class Game(GamePrefix):
+    def __init__(self,PegLength,trylength,playernum):
+        self._PegLength= PegLength
+        self._trylength = trylength
+        self._playernum= playernum
         
 
-
-
-
-
-class game(code,gamePrefix):
-    def __init__(self, lengthPegs,trylength):
-        gamePrefix.__init__(self,lengthPegs,trylength)
-
-
-    
-
-    
-    
-    # 4 player game
-    def mastermind4playerComputer(self):
-        print("welcome to 4 player vs computer/n")
-        player_1 = player(4)
-        # player_1.get_players(4)
-        #len of pegs
-        PegLength = self.PegLength
-        trylength = self.trylength
-
-        # Auto generating the code
-        solution_code = code.code_generator(self,PegLength)
-        print("Computer code generated successfully/n/n")
-
-        for x in range(0,4):
-
-
-
-            print("Welcome to MasterMind", player_1.p[x])
-            
-            # creating  attempts for the 2nd player to guess
-            for i in range(1, trylength+1):
-                if (code.compute(self,player_1.p[x],i, trylength,x,3,solution_code,PegLength))=='discontinue':
-                    break
+    def ply(self):
+        print("player/s =  ",self._playernum)
+        print("Mode  =  vs Computer ")
+        
+        solution_code = GamePrefix.code_generator(self,self._PegLength)
+        playerobj = Player(self._playernum)
         
 
-    
-    # 4 player with computer
-    def mastermind4player(self):
-        print("Welcome to the Mindmaster for 4 Players ")
-        player_1 = player(4)
-        # player_1.get_players(4)
-        lengthPegs = self.PegLength
-        trylength = self.trylength
-
-        print("\n\n Welcome  ", player_1.p[0] )
-
-        #getting code from the mastermind class
-        solution_code = code.get_code(self,lengthPegs) 
-        if solution_code != 'X':
-            
-
-            for x in range(1,4):
-                print(player_1.p[x],' Your turn to crack The code')
-
-
-
-                print("Welcome to MasterMind", player_1.p[x])
-                
-                # creating 12 attempts for the  player to guess
-                for i in range(1, trylength+1):
-                    if (code.compute(self,player_1.p[x],i, trylength,x,3,solution_code,lengthPegs))=='discontinue':
-                        break
-                
-
-        else:
-            solution_code = code.get_code(self,lengthPegs)
-
         
-
+        for x in range(0,len(playerobj.Playerlist)):
             
-    
-    
-    
-    # get two player's game
-    def mastermind2(self):
-        print("Welcome to MasterMind for two players\n")
-
-        player_1 = player(2)
-        # player_1.get_players(2)
-        lengthPegs = self.PegLength
-        
-        trylength = self.trylength
-
-        print("\n\n Welcome", player_1.p[0] )
-
-        #getting code from the mastermind class
-        solution_code = code.get_code(self,lengthPegs) 
-        if solution_code != 'X':
-
-
-            print("Welcome to Matermind", player_1.p[1], "\n\n")
+            print("Welcome to MasterMind", playerobj.Playerlist[x])
             
-            # creating attempts for the  player to guess
-            for i in range(1, trylength+1):
-                if (code.compute(self,player_1.p[1],i, trylength,1,1,solution_code,lengthPegs))=='discontinue':
+            for i in range(1, self._trylength+1):
+                if (GamePrefix.compute(self,playerobj.Playerlist[x],i, self._trylength,x,3,solution_code,self._PegLength))=='discontinue':
                     break
 
-        else:
-            solution_code = code.get_code(self,lengthPegs)
+
+        
+
+
+
+###################################################
+#####      Game#1                           #####
+###################################################
+
+class MasterMind4PlayerComputer(Game):
+    def __init__(self,PegLength,trylength,playernum):
+        super().__init__(PegLength,trylength,playernum)
+    
+        
+    
+
+###################################################
+#####      Game#2                           #####
+###################################################
+
+class MasterMind4Player(Game):
+    def __init__(self,PegLength,trylength,playernum):
+        super().__init__(PegLength,trylength,playernum)
+
+    def ply(self):
+          
+        
+
+
+        playerobj = Player(self._playernum)
+        print("\n\n Welcome  ", playerobj.Playerlist[0] )
+        print("\nYou are the codemaker for this game./nYou need to make a Code that consists of "+self._PegLength+ "  pegs.\nEach peg can be of the colour (R)ed, (B)lue, (G)reen, (Y)ellow, (M)agenta or (C)yan \nMake the Code by specifying four characters where each character indicates a colour as above.\n For example, BYRG represents the code Blue Yellow Red Green.\nYou need to enter the Code twice.") 
+        solution_code='X'
+        while solution_code =='X':
+            solution_code = GamePrefix.get_code(self,self._PegLength)
+        for x in range(1,self._playernum):
+            print("\n\nWelcome ", playerobj.Playerlist[x])
+            print("\nYou are the codebreaker for this game.\n",playerobj.Playerlist[0]," has made a Code for you.\nYou need to break the Code that consists of ",self._PegLength," pegs.\nEach peg can be of the colour (R)ed, (B)lue, (G)reen, (Y)ellow, (M)agenta or (C)yan.\nBreak the Code by specifying four characters where each character indicates a colour as above.\nFor example, BYRG represents the code Blue Yellow Red Green.\nFeedback will be provided on your attempted Code.\nBlack peg means there is a peg in your Code with correct colour and correct order.\nWhite peg means there is a peg in your Code with correct colour but incorrect order.\nBlank space in the feedback denotes a peg in your Code with incorrect colour and incorrect order.\nYou will get "+self._trylength+" attempts to break the code. Good luck!\n\n ")
             
+            for i in range(1, self._trylength+1):
+                if (GamePrefix.compute(self,playerobj.Playerlist[x],i, self._trylength,x,3,solution_code,self._PegLength))=='discontinue':
+                    break
+                
+
+        
+
+
+
+###################################################
+#####      Game#3                           #####
+###################################################
+
+class MasterMind2(MasterMind4Player):
+    def __init__(self,PegLength,trylength,playernum):
+        super().__init__(PegLength,trylength,playernum)
+
+    
             
+###################################################
+#####      Game#4                           #####
+###################################################
+ 
 
-    # 1 player
-    def mastermind1(self):
-        print("Welcome to the MasterMind for 1 palyer")
-        lengthPegs = self.PegLength
-        trylength = self.trylength
-
-        player_1 = player(1)
-        # player_1.get_players(1)
-        print("Welcome,", player_1.p[0] )
-
-           
-
-        # Auto generating the code
-        solution_code = code.code_generator(self,lengthPegs)
-        print("\n\n",lengthPegs,"  peg code Generated by computer Successfully")
-
-        # Giving the player  attempts to guess the code
-        for i in range(1, trylength+1):
-            if (code.compute(self,player_1.p[0],i, trylength,1,1,solution_code,lengthPegs))=='discontinue':
-                break
-
-
+class MasterMind1(Game):
+    def __init__(self,PegLength,trylength,playernum):
+        super().__init__(PegLength,trylength,playernum)
 
